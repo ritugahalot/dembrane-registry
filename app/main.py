@@ -43,8 +43,8 @@ async def submit_response(response: Response):
 @app.get("/api/responses/{form_id}")
 async def get_responses(form_id: str):
     responses = db["responses"].find({"form_id": form_id})
-    r_response = {}
+    r_response = []
     for response in responses:
         response["_id"] = serialize_id(response["_id"])
-        r_response[response["form_id"]] = response["answers"]
+        r_response.append(response["answers"])
     return r_response
